@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: { isEmail: true }
     },
     pass: DataTypes.STRING,
+    isAdmin: DataTypes.BOOLEAN,
   }, {});
   User.associate = function(models) {
     // associations can be defined here

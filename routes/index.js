@@ -13,5 +13,6 @@ router.post('/api/user', userController.add);
 router.put('/api/user/:id', userController.update);
 router.delete('/api/user/:id', userController.delete);
 
+router.post('/api/login', userController.login)
 
 module.exports = router;

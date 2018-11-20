@@ -23,7 +23,11 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
-  add(req, res) {
+  async add(req, res) {
+    // Check if email is taken
+    let user = await User.findOne({ where: { email: req.body.email } })
+    if (user) return res.status(500).json({ 'message':'Email in use' })
+
     bcrypt.hash(req.body.pass, saltRounds, (err, hash) => {
         return User
         .create({
@@ -74,4 +78,15 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
+  async login(req, res) {
+    if (!req.body.email || !req.body.pass) res.status(500).json({ 'message':'Check request' })
+
+    let user = await User.findOne({ where: { email: req.body.email } })
+    if (!user) return res.status(400).json({ 'message':'Email not registered' })
+
+    let compare = await bcrypt.compare(req.body.pass, user.pass)
+    if (!compare) res.status(500).json({ 'message':'Incorrect email/password' })
+
+    res.status(200).json({ 'message':'Logged in' })
+  }
 };

@@ -1,15 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-const userController = require ('../controllers').user;
+const userController = require('../controllers/user');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'DSSD-Users' });
 });
-
-router.post('/login', (req, res, next) => {  
-})
 
 router.get('/api/user', userController.list);
 router.get('/api/user/:id', userController.getById);

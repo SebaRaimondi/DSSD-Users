@@ -100,7 +100,7 @@ module.exports = {
     if (!token) return res.status(500).json({ 'message':'Check request', success: false })
 
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      if (err) return res.status(500).json({ message: 'Invalid token', success: false })
+      if (err) return res.status(200).json({ message: 'Invalid token', success: false })
       return res.status(200).json({ decoded: decoded, message: 'Valid token', success: true })
     })
   }
